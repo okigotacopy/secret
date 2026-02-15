@@ -1,0 +1,140 @@
+/* ===============================
+   SECURITY MODAL (БЕЗОПАСНОСТЬ)
+   =============================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== КОНТЕНТ МОДАЛКИ ===== */
+.modal-content {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 520px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    animation: modalUp 0.3s ease;
+}
+
+/* ===== АНИМАЦИЯ ===== */
+@keyframes modalUp {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===== КНОПКА ЗАКРЫТИЯ ===== */
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1f1f1f;
+    transition: opacity 0.2s;
+}
+
+.modal-close:hover {
+    opacity: 0.6;
+}
+
+/* ===== ЗАГОЛОВКИ ===== */
+.modal-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 26px;
+    color: #1f1f1f;
+    margin-bottom: 8px;
+}
+
+.modal-description {
+    font-size: 15px;
+    color: #9a9a9a;
+    margin-bottom: 30px;
+}
+
+/* ===== СЕКЦИИ ===== */
+.security-section {
+    background: #f7f7f7;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.security-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #1f1f1f;
+}
+
+/* ===== INPUT ===== */
+.security-section input {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.security-section input:focus {
+    border-color: #ff7143;
+}
+
+/* ===== КНОПКИ ===== */
+.security-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: #ff7143;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Jost', sans-serif;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.2s;
+}
+
+.security-btn:hover {
+    background: #e8653a;
+    transform: translateY(-1px);
+}
+
+/* ===== 2FA ===== */
+#twoFaStatus {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: #666666;
+}
+
+/* ===== МОБИЛКА ===== */
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 30px 20px;
+        border-radius: 16px;
+    }
+
+    .modal-title {
+        font-size: 22px;
+    }
+}

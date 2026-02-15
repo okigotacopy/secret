@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dexile - Проходка</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/favicon.svg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #19191B;
+            --gray: #8F8F9E;
+            --orange: #FF7143;
+            --light-bg: #F8F8FA;
+            --green: #10B981;
+        }
+
+        .page-content {
+            padding: 120px 20px 80px;
+            background: var(--light-bg);
+            min-height: 100vh;
+        }
+
+        .page_container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .passage-hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .passage-hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .passage-hero h1 span {
+            color: var(--orange);
+        }
+
+        .passage-hero p {
+            font-family: 'Jost', sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .passage-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .passage-image {
+            display: none;
+        }
+
+        .passage-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .passage-info h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .passage-info p {
+            font-family: 'Jost', sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .passage-price {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .passage-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .passage-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Jost', sans-serif;
+            font-size: 15px;
+            color: var(--dark);
+        }
+
+        .passage-feature-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--orange);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .price-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .price-label {
+            font-family: 'Jost', sans-serif;
+            font-size: 14px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .price-amount {
+            font-size: 56px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 30px;
+        }
+
+        .price-amount span {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        .buy-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 18px 32px;
+            background: var(--orange);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .buy-button:hover {
+            background: #e6663c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 113, 67, 0.3);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .payment-btn {
+            padding: 14px 20px;
+            background: var(--light-bg);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .payment-btn:hover {
+            border-color: var(--orange);
+            background: white;
+        }
+
+        .payment-btn.selected {
+            border-color: var(--orange);
+            background: rgba(255, 113, 67, 0.1);
+        }
+
+        @media (max-width: 900px) {
+            .passage-content {
+                grid-template-columns: 1fr;
+            }
+
+            .passage-price {
+                width: 100%;
+            }
+
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-v2">
+        <div class="header_container">
+            <nav class="header_nav">
+                <a href="index.html" class="logo-container">
+                    <img src="img/favicon.svg" alt="Dexile Logo" width="48" height="48">
+                    <span class="logo-text">Dexile</span>
+                </a>
+                <ul class="header__list">
+                    <li><a href="index.html" class="header__list-link">Главная</a></li>
+                    <li><a href="rules.html" class="header__list-link">Правила</a></li>
+                    <li><a href="the_passage.html" class="header__list-link active">Проходка</a></li>
+                    <li><a href="bank.html" class="header__list-link" id="bankLink">Банк</a></li>
+                </ul>
+                <div class="header__buttons">
+                    <a href="login.html" class="btn btn-login" id="loginBtn">Войти</a>
+                    <a href="register.html" class="btn btn-play" id="playBtn">Начать играть!</a>
+                    <a href="profile.html" class="btn btn-profile" id="profileBtn">
+                        <img src="img/profile.png" alt="Profile">
+                        <span id="headerBalance">0 ар</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <div class="page_container">
+            <div class="passage-hero">
+                <h1>Купите <span>проходку</span> на сервер Dexile</h1>
+                <p>Получите доступ ко всем возможностям сервера и присоединяйтесь к нашему дружелюбному сообществу игроков</p>
+            </div>
+
+            <div class="passage-content">
+                <div class="passage-info">
+                    <h2>Что даёт проходка?</h2>
+                    <p>Проходка — это ваш ключ к полноценной игре на сервере Dexile. После покупки вы получите доступ ко всем игровым локациям и функциям.</p>
+                    
+                    <div class="passage-features">
+                        <div class="passage-feature">
+                            <div class="passage-feature-icon">🎮</div>
+                            <span>Полный доступ к серверу</span>
+                        </div>
+                        <div class="passage-feature">
+                            <div class="passage-feature-icon">🏠</div>
+                            <span>Возможность создавать постройки</span>
+                        </div>
+                        <div class="passage-feature">
+                            <div class="passage-feature-icon">🤝</div>
+                            <span>Присоединение к кланам</span>
+                        </div>
+                        <div class="passage-feature">
+                            <div class="passage-feature-icon">💰</div>
+                            <span>Доступ к банковской системе</span>
+                        </div>
+                        <div class="passage-feature">
+                            <div class="passage-feature-icon">🎤</div>
+                            <span>Голосовой чат PlasmoVoice</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="passage-price">
+                    <div class="price-card">
+                        <div class="price-label">Стоимость проходки</div>
+                        <div class="price-amount">499 <span>₽</span></div>
+                        <button class="buy-button" id="buyButton">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                                <path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                            Купить проходку
+                        </button>
+                        <div class="payment-methods" id="paymentMethods" style="display: none;">
+                            <button class="payment-btn" onclick="selectPayment('yoomoney')">ЮMoney</button>
+                            <button class="payment-btn" onclick="selectPayment('spb')">СПБ</button>
+                            <button class="payment-btn" onclick="selectPayment('sberbank')">Сбербанк</button>
+                            <button class="payment-btn" onclick="selectPayment('tinkoff')">Тинькофф</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-v2">
+        <div class="footer_container">
+            <div class="footer_grid">
+                <div class="footer_brand">
+                    <div class="footer_logo">
+                        <img src="img/favicon.svg" alt="Dexile Logo">
+                    </div>
+                    <div class="footer_brand_text">
+                        <div class="footer_brand_title">DEXILE</div>
+                        <div class="footer_brand_sub">Ванильный сервер</div>
+                        <p class="footer_brand_desc">Сервер, где каждый найдёт себе людей по интересу и занятие по душе. Всё ограничено только вашим воображением.</p>
+                    </div>
+                </div>
+                <div class="footer_col">
+                    <div class="footer_title">Навигация</div>
+                    <a href="index.html">Главная</a>
+                    <a href="rules.html">Правила</a>
+                    <a href="the_passage.html">Проходка</a>
+                    <a href="bank.html">Банк</a>
+                </div>
+                <div class="footer_col">
+                    <div class="footer_title">Информация</div>
+                    <a href="index.html#wiki">Википедия</a>
+                    <a href="index.html#commands">Команды</a>
+                    <a href="https://discord.com" target="_blank" rel="noreferrer">Discord</a>
+                </div>
+                <div class="footer_col">
+                    <div className="footer_title">Документы</div>
+                    <a href="index.html#privacy">Конфиденциальность</a>
+                    <a href="index.html#offer">Оферта</a>
+                    <a href="index.html#contacts">Контакты</a>
+                </div>
+                <div class="footer_col footer_dev">
+                    <div class="footer_title">Разработано</div>
+                    <div class="footer_dev_name">Morohaku</div>
+                </div>
+            </div>
+            <div class="footer_bottom">
+                <div class="footer_bottom_left">© 2025 Dexile. Все права защищены.</div>
+                <div class="footer_bottom_right">Not affiliated with Mojang Studios.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/the_passage.js"></script>
+</body>
+</html>

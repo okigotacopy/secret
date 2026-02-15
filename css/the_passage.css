@@ -1,0 +1,20 @@
+.hero__image {
+    position: absolute;
+    top: 150px; 
+    left: 200px;
+    z-index: 1; 
+    max-width: 5000px;
+    pointer-events: none; 
+}
+
+.hero__button {
+    font-weight: normal;
+    font-size: 24px;
+    letter-spacing: -0.53px;
+    color: white;
+    padding: 19px 150px;
+    border-radius: 10px;
+    transition: 0.3s;
+    outline: none;
+    border: none;
+}

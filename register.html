@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dexile - Регистрация</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="icon" href="/img/favicon.svg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #19191B;
+            --gray: #8F8F9E;
+            --orange: #FF7143;
+            --yellow: #ffbb00;
+        }
+
+        .auth-page {
+            padding: 120px 20px 80px;
+            background: #F8F8FA;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .auth-content h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .auth-content h1 span {
+            color: var(--orange);
+        }
+
+        .auth-content p {
+            font-family: 'Jost', sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .auth-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .auth-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Jost', sans-serif;
+            font-size: 15px;
+            color: var(--dark);
+        }
+
+        .auth-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .register-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .register-form h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 15px;
+            color: var(--dark);
+            background: #F8F8FA;
+            transition: 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--orange);
+            background: white;
+        }
+
+        .form-hint {
+            font-family: 'Jost', sans-serif;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background: var(--orange);
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .register-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 113, 67, 0.3);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 24px;
+            font-family: 'Jost', sans-serif;
+            font-size: 15px;
+            color: var(--gray);
+        }
+
+        .login-link a {
+            color: var(--orange);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .auth-image img {
+            max-width: 400px;
+            width: 100%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 900px) {
+            .auth-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .auth-features {
+                align-items: center;
+            }
+
+            .auth-image {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-v2">
+        <div class="header_container">
+            <nav class="header_nav">
+                <a href="index.html" class="logo-container">
+                    <img src="img/favicon.svg" alt="Dexile Logo" width="48" height="48">
+                    <span class="logo-text">Dexile</span>
+                </a>
+                <ul class="header__list">
+                    <li><a href="index.html" class="header__list-link">Главная</a></li>
+                    <li><a href="rules.html" class="header__list-link">Правила</a></li>
+                    <li><a href="the_passage.html" class="header__list-link">Проходка</a></li>
+                    <li><a href="bank.html" class="header__list-link" id="bankLink">Банк</a></li>
+                </ul>
+                <div class="header__buttons">
+                    <a href="login.html" class="btn btn-login">Войти</a>
+                    <a href="register.html" class="btn btn-play">Начать играть!</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-page">
+        <div class="auth-container">
+            <div class="auth-content">
+                <h1>Присоединяйся к <span>Dexile</span></h1>
+                <p>Создай аккаунт и начни своё приключение на нашем сервере. Ванильный Minecraft, честная игра и дружелюбное сообщество ждут тебя!</p>
+                
+                <div class="auth-features">
+                    <div class="auth-feature">
+                        <div class="auth-feature-icon">🎮</div>
+                        <span>Полный доступ к серверу</span>
+                    </div>
+                    <div class="auth-feature">
+                        <div class="auth-feature-icon">💰</div>
+                        <span>Личный банковский счёт</span>
+                    </div>
+                    <div class="auth-feature">
+                        <div class="auth-feature-icon">🏠</div>
+                        <span>Приват территорий</span>
+                    </div>
+                    <div class="auth-feature">
+                        <div class="auth-feature-icon">🤝</div>
+                        <span>Сообщество игроков</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="register-form">
+                <h2>Регистрация</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="username">Придумайте логин</label>
+                        <input type="text" id="username" class="form-input" placeholder="Только буквы и цифры" minlength="3" maxlength="16" pattern="[a-zA-Z0-9]+" required>
+                        <span class="form-hint">Логин: 3-16 символов, только буквы и цифры</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Придумайте пароль</label>
+                        <input type="password" id="password" class="form-input" placeholder="Минимум 8 символов" minlength="8" required>
+                        <span class="form-hint">Пароль должен содержать минимум 8 символов</span>
+                    </div>
+                    
+                    <button type="submit" class="register-button">Создать аккаунт</button>
+                    
+                    <p class="login-link">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer class="footer-v2">
+        <div class="footer_container">
+            <div class="footer_grid">
+                <div class="footer_brand">
+                    <div class="footer_logo">
+                        <img src="img/favicon.svg" alt="Dexile Logo">
+                    </div>
+                    <div class="footer_brand_text">
+                        <div class="footer_brand_title">DEXILE</div>
+                        <div class="footer_brand_sub">Ванильный сервер</div>
+                        <p class="footer_brand_desc">Сервер, где каждый найдёт себе людей по интересу и занятие по душе. Всё ограничено только вашим воображением.</p>
+                    </div>
+                </div>
+                <div class="footer_col">
+                    <div class="footer_title">Навигация</div>
+                    <a href="index.html">Главная</a>
+                    <a href="rules.html">Правила</a>
+                    <a href="the_passage.html">Проходка</a>
+                    <a href="bank.html">Банк</a>
+                </div>
+                <div class="footer_col">
+                    <div class="footer_title">Информация</div>
+                    <a href="index.html#wiki">Википедия</a>
+                    <a href="index.html#commands">Команды</a>
+                    <a href="https://discord.com" target="_blank" rel="noreferrer">Discord</a>
+                </div>
+                <div class="footer_col">
+                    <div class="footer_title">Документы</div>
+                    <a href="index.html#privacy">Конфиденциальность</a>
+                    <a href="index.html#offer">Оферта</a>
+                    <a href="index.html#contacts">Контакты</a>
+                </div>
+                <div class="footer_col footer_dev">
+                    <div class="footer_title">Разработано</div>
+                    <div class="footer_dev_name">Morohaku</div>
+                </div>
+            </div>
+            <div class="footer_bottom">
+                <div class="footer_bottom_left">© 2025 Dexile. Все права защищены.</div>
+                <div class="footer_bottom_right">Not affiliated with Mojang Studios.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/register.js"></script>
+</body>
+</html>

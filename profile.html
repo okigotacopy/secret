@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dexile - Профиль</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/security.css">
+    <link rel="icon" href="/img/favicon.svg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #19191B;
+            --gray: #8F8F9E;
+            --orange: #FF7143;
+            --orange-hover: #e6663c;
+            --light-bg: #F8F8FA;
+            --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            --green: #10B981;
+            --red: #EF4444;
+        }
+
+        .page-content {
+            padding: 120px 20px 80px;
+            background: var(--light-bg);
+            min-height: 100vh;
+            padding-left: 128px;
+        }
+
+        .page_container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 30px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .aside-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 96px;
+            background: #fff;
+            border-right: 1px solid #E5E5E5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            z-index: 1500;
+        }
+
+        .aside-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            text-decoration: none;
+        }
+
+        .aside-logo img {
+            width: 32px;
+            height: 32px;
+            transition: 0.2s;
+        }
+
+        .aside-logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .aside-menu,
+        .aside-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .aside-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            text-decoration: none;
+            position: relative;
+            color: var(--gray);
+            transition: 0.2s;
+            background: transparent;
+        }
+
+        .aside-link img {
+            width: 28px;
+            height: 28px;
+            transition: filter 0.2s, opacity 0.2s;
+        }
+
+        .aside-link svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .aside-link:hover {
+            color: var(--orange);
+            background: var(--light-bg);
+        }
+
+        .aside-link:hover img {
+            filter: grayscale(1);
+            opacity: 0.8;
+        }
+
+        .aside-link.active {
+            background: var(--orange);
+            color: #fff;
+        }
+
+        .aside-link.active img {
+            filter: brightness(0) invert(1);
+        }
+
+        .aside-label {
+            position: absolute;
+            top: 50%;
+            left: calc(100% + 10px);
+            transform: translateY(-50%) translateX(8px);
+            background: #fff;
+            color: var(--dark);
+            border: 1px solid #E5E5E5;
+            border-radius: 8px;
+            padding: 7px 10px;
+            font-family: 'Jost', sans-serif;
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            transition: 0.2s;
+            box-shadow: var(--card-shadow);
+        }
+
+        .aside-link:hover .aside-label {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: transparent;
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: none;
+            height: fit-content;
+        }
+
+        .profile-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .profile-subtitle {
+            font-family: 'Jost', sans-serif;
+            font-size: 15px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .profile-info {
+            margin-bottom: 30px;
+        }
+
+        .profile-info__item {
+            display: flex;
+            flex-direction: column;
+            padding: 16px 0;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .profile-info__item:last-child {
+            border-bottom: none;
+        }
+
+        .profile-info__label {
+            font-family: 'Jost', sans-serif;
+            font-size: 13px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .profile-info__value {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 18px;
+            color: var(--dark);
+        }
+
+        .pass-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .pass-status.has-access {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--green);
+        }
+
+        .pass-status.no-access {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--red);
+        }
+
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .profile-btn_bank,
+        .profile-btn_security {
+            background-color: var(--orange);
+        }
+
+        .profile-btn_bank:hover,
+        .profile-btn_security:hover {
+            background-color: var(--orange-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 113, 67, 0.4);
+        }
+
+        .profile-btn_logout {
+            background-color: transparent;
+            border: 2px solid #E5E5E5;
+            color: var(--gray);
+        }
+
+        .profile-btn_logout:hover {
+            border-color: var(--red);
+            color: var(--red);
+            background-color: #FFF5F5;
+        }
+
+        /* Skin Card */
+        .skin-card {
+            background: transparent;
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .skin-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 30px;
+        }
+
+        .skin-hint-top {
+            margin-bottom: 16px;
+        }
+
+        .skin-nick-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .skin-nick-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 14px;
+            color: var(--dark);
+        }
+
+        .skin-nick-input:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        .skin-load-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            background: var(--orange);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .skin-load-btn:hover {
+            background: var(--orange-hover);
+            transform: translateY(-2px);
+        }
+
+        .skin-container {
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .skin-container-3d {
+            min-height: 420px;
+        }
+
+        .skin-container canvas {
+            display: block;
+            border-radius: 8px;
+        }
+
+        .skin-hint {
+            font-family: 'Jost', sans-serif;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* Header Balance */
+        #headerBalance {
+            font-weight: 600;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .modal-description {
+            font-family: 'Jost', sans-serif;
+            font-size: 15px;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .security-section {
+            margin-bottom: 30px;
+        }
+
+        .security-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .security-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+
+        .security-section input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #E5E5E5;
+            border-radius: 10px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 15px;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        .security-section input:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        .security-btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+            background: var(--orange);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .security-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 113, 67, 0.3);
+        }
+
+        @media (max-width: 900px) {
+            .page_container {
+                grid-template-columns: 1fr;
+            }
+
+            .page_container {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .aside-nav {
+                width: 72px;
+            }
+            .aside-logo,
+            .aside-link {
+                width: 52px;
+                height: 52px;
+            }
+            .aside-logo img,
+            .aside-link img,
+            .aside-link svg {
+                width: 24px;
+                height: 24px;
+            }
+            .page-content {
+                padding-left: 100px;
+            }
+            .aside-label {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="aside-nav">
+        <a href="index.html" class="aside-logo" aria-label="Главная">
+            <img src="img/favicon.svg" alt="Главная">
+        </a>
+        <div class="aside-menu">
+        <a href="profile.html" class="aside-link active" aria-label="Профиль">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm-8 9a8 8 0 0 1 16 0H4Z"/></svg>
+            <span class="aside-label">Профиль</span>
+        </a>
+        <a href="bank.html" class="aside-link" aria-label="Кошелёк">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><rect x="4" y="8" width="16" height="2"></rect></svg>
+            <span class="aside-label">Кошелёк</span>
+        </a>
+        <a href="profile.html#friends" class="aside-link" aria-label="Друзья">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="8" cy="9" r="3"></circle><circle cx="16" cy="11" r="3"></circle><path d="M2 20a6 6 0 0 1 12 0H2Z"></path><path d="M12 20h10a5 5 0 0 0-6-4"></path></svg>
+            <span class="aside-label">Друзья</span>
+        </a>
+        <a href="rules.html" class="aside-link" aria-label="Суд">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 3h2v3h6v2H5V6h6V3Z"></path><circle cx="7" cy="12" r="3"></circle><circle cx="17" cy="12" r="3"></circle><path d="M12 8v13h-2v-4h4v4h-2Z"></path></svg>
+            <span class="aside-label">Суд</span>
+        </a>
+        <a href="rules.html" class="aside-link" aria-label="Города">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="10" width="5" height="10"></rect><rect x="10" y="6" width="4" height="14"></rect><rect x="16" y="12" width="5" height="8"></rect><rect x="4.5" y="12" width="2" height="2"></rect><rect x="11" y="8" width="2" height="2"></rect><rect x="18" y="14" width="2" height="2"></rect></svg>
+            <span class="aside-label">Города</span>
+        </a>
+        <a href="index.html" class="aside-link" aria-label="Карта">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6 8 4l8 2 5-2v16l-5 2-8-2-5 2V6Z"></path><path d="M8 4v16"></path><path d="M16 6v16"></path></svg>
+            <span class="aside-label">Карта</span>
+        </a>
+        <a href="index.html#wiki" class="aside-link" aria-label="Википедия">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 5h10a3 3 0 0 1 3 3v11H7a3 3 0 0 0-3-3V5Z"></path><path d="M7 6h11v13h-1a3 3 0 0 0-3-3H7V6Z"></path></svg>
+            <span class="aside-label">Википедия</span>
+        </a>
+        <a href="profile.html#stats" class="aside-link" aria-label="Статистика">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4" y="12" width="3" height="8"></rect><rect x="10" y="8" width="3" height="12"></rect><rect x="16" y="4" width="3" height="16"></rect></svg>
+            <span class="aside-label">Статистика</span>
+        </a>
+        </div>
+        <div class="aside-bottom">
+            <a href="#" class="aside-link" aria-label="Уведомления">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7v3.59l-1.71 1.71A1 1 0 0 0 3 16h18a1 1 0 0 0 .71-1.71L20 12.59V9a7 7 0 0 0-7-7zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg>
+                <span class="aside-label">Уведомления</span>
+            </a>
+            <a href="#" class="aside-link" aria-label="Настройки">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94a7.43 7.43 0 0 0 .05-1l2-1.55a.5.5 0 0 0 .12-.65l-1.9-3.29a.5.5 0 0 0-.6-.22l-2.35.95a7.27 7.27 0 0 0-1.73-1l-.36-2.49a.5.5 0 0 0-.5-.42h-3.8a.5.5 0 0 0-.5.42l-.36 2.49a7.27 7.27 0 0 0-1.73 1l-2.35-.95a.5.5 0 0 0-.6.22L2.69 8.2a.5.5 0 0 0 .12.65l2 1.55a7.43 7.43 0 0 0 0 2l-2 1.55a.5.5 0 0 0-.12.65l1.9 3.29a.5.5 0 0 0 .6.22l2.35-.95a7.27 7.27 0 0 0 1.73 1l.36 2.49a.5.5 0 0 0 .5.42h3.8a.5.5 0 0 0 .5-.42l.36-2.49a7.27 7.27 0 0 0 1.73-1l2.35.95a.5.5 0 0 0 .6-.22l1.9-3.29a.5.5 0 0 0-.12-.65l-2-1.55ZM12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5Z"/></svg>
+                <span class="aside-label">Настройки</span>
+            </a>
+            <a href="login.html" class="aside-link" aria-label="Выйти">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 17v-3h4v-4h-4V7l-5 5 5 5zm9 3H12v-2h7V6h-7V4h7a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2z"/></svg>
+                <span class="aside-label">Выйти</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="page-content">
+        <div class="page_container">
+            <!-- Левая колонка: Информация и действия -->
+            <div class="profile-sidebar">
+                <div class="profile-card">
+                    <h1 class="profile-nick-title" id="profileNickTitle">—</h1>
+                    <p class="last-seen" id="lastSeenText">Был на сервере СКОРО часа назад</p>
+                    <div class="role-row">
+                        <span class="role-badge no-pass" id="passBadge"><span class="dot"></span>Нет проходки</span>
+                    </div>
+
+                    <div class="about-section">
+                        <h3 class="section-title">Расскажите о себе</h3>
+                        <div class="about-row">
+                            <div class="about-text" id="aboutDisplay">Нажмите на карандаш, чтобы добавить описание</div>
+                            <img id="aboutEditBtn" class="about-pencil" src="img/pencil.svg" alt="Редактировать">
+                        </div>
+                        <div class="about-edit" id="aboutEditBlock">
+                            <textarea id="aboutTextarea" class="about-textarea" maxlength="300" placeholder="До 300 символов"></textarea>
+                            <div class="about-edit-actions">
+                                <div class="about-counter"><span id="aboutCount">0</span>/300</div>
+                                <div class="about-edit-buttons">
+                                    <button class="about-save-btn" id="aboutSaveBtn">Сохранить</button>
+                                    <button class="about-cancel-btn" id="aboutCancelBtn">Отмена</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subscription-section">
+                        <h3 class="section-title">Арвион</h3>
+                        <div class="subscription-row">
+                            <span class="sub-status" id="subStatus">Не куплен</span>
+                            <a class="sub-action" href="#" id="buySubLink">Купить подписку</a>
+                        </div>
+                    </div>
+
+                    <div class="stats-section" id="stats">
+                        <h3 class="section-title">Статистика</h3>
+                        <div class="stats-grid" id="statsGrid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Правая колонка: Скин -->
+            <div class="profile-main">
+                <div class="skin-card">
+                    
+                    <div class="skin-container skin-container-3d">
+                        <canvas id="skinCanvas3d" width="320" height="480"></canvas>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="discord-block">
+                        <a href="http://de1.the-ae.ovh:25697/api/auth/discord" class="discord-button" id="discordLink">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.07.07 0 0 0 .025.047a19.9 19.9 0 0 0 5.993 3.01a.076.076 0 0 0 .082-.027a14.144 14.144 0 0 0 1.226-1.987a.073.073 0 0 0-.041-.1a13.07 13.07 0 0 1-1.861-.906a.074.074 0 0 1-.008-.125c.125-.093.25-.19.367-.288a.07.07 0 0 1 .073-.01c3.911 1.782 8.149 1.782 12.025 0a.07.07 0 0 1 .074.01c.117.099.242.195.367.288a.074.074 0 0 1-.006.125c-.6.366-1.221.66-1.862.906a.074.074 0 0 0-.04.102c.353.69.78 1.357 1.226 1.987a.075.075 0 0 0 .082.028a19.83 19.83 0 0 0 6-3.01a.074.074 0 0 0 .025-.046c.5-5.177-.838-9.673-3.574-13.66a.06.06 0 0 0-.032-.028Zm-12.14 9.508c-1.18 0-2.154-1.087-2.154-2.425c0-1.338.956-2.425 2.154-2.425c1.206 0 2.171 1.097 2.154 2.425c0 1.338-.956 2.425-2.154 2.425Zm7.65 0c-1.18 0-2.154-1.087-2.154-2.425c0-1.338.956-2.425 2.154-2.425c1.206 0 2.171 1.097 2.154 2.425c0 1.338-.948 2.425-2.154 2.425Z"/>
+                            </svg>
+                            Привязать Discord
+                        </a>
+                    </div>
+                    <div class="friends-block" id="friends">
+                        <div class="friends-header">
+                            <h3>Друзья</h3>
+                            <a href="#" class="friends-all-link">Все друзья</a>
+                        </div>
+                        <div class="friends-list" id="friendsList">
+                            <div class="friends-empty">Функционал друзей скоро добавим</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal: Безопасность -->
+    <div class="modal" id="securityModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeSecurityModal">&times;</button>
+            <h2 class="modal-title">Безопасность аккаунта</h2>
+            <p class="modal-description">Управление паролем и защитой аккаунта</p>
+
+            <div class="security-section">
+                <h3>Смена пароля</h3>
+                <input type="password" id="oldPassword" placeholder="Текущий пароль">
+                <input type="password" id="newPassword" placeholder="Новый пароль">
+                <button class="security-btn" id="changePasswordBtn">Сменить пароль</button>
+            </div>
+
+            <div class="security-section">
+                <h3>Двухфакторная защита (2FA)</h3>
+                <p id="twoFaStatus">Статус: выключена</p>
+                <button class="security-btn" id="toggle2faBtn">Включить 2FA</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/skinview3d@3.4.1/bundles/skinview3d.bundle.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/skin.js"></script>
+    <script src="js/modal.js"></script>
+</body>
+</html>

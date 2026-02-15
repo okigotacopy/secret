@@ -1,0 +1,75 @@
+:root {
+    --dark: #19191B;
+    --gray: #8F8F9E;
+    --orange: #FF7143;
+    --yellow: #ffbb00;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.rules {
+    position: relative;
+    min-height: 600px;
+}
+
+.hero__desc{
+    color: var(--gray);
+    line-height: 19px;
+    margin-bottom: 18px;
+    font-size: 20px;
+}
+
+.hero__text, .hero__text-two, .hero__text-three, .hero__text-four, .hero__text-five {
+    border: 3px solid var(--orange);
+    border-radius: 15px;
+    padding: 30px;
+    background-color: #fff;
+    position: relative;
+    z-index: 10; 
+}
+
+
+.hero__title {
+    margin-bottom: 25px;
+    font-size: 48px;
+    color: var(--dark);
+}
+
+
+.rules__image {
+    position: absolute;
+    top: 150px; 
+    left: 300px;
+    z-index: 1; 
+    max-width: 5000px;
+    pointer-events: none; 
+}
+
+.hero__text .hero__desc:first-of-type {
+    margin-top: 0;
+}
+
+i {
+    color: var(--orange);
+}
+
+.wiki-link {
+    display: flex;
+    color: var(--gray);
+    border: 1px solid var(--gray);
+    border-radius: 10px;
+    background-color: #e9e9e9;
+    font-size: 19px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.li-rules {
+    padding: 5px;
+}

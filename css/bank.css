@@ -1,0 +1,284 @@
+/* Bank Styles */
+:root {
+    --dark: #19191B;
+    --gray: #8F8F9E;
+    --orange: #FF7143;
+    --yellow: #ffbb00;
+    --green: #10B981;
+    --red: #EF4444;
+    --light-bg: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --border-color: #E5E7EB;
+}
+
+.bank-section {
+    padding: 60px 20px;
+    min-height: calc(100vh - 140px);
+}
+
+.bank-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Header */
+.bank-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.bank-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.bank-subtitle {
+    font-family: 'Jost', sans-serif;
+    font-size: 18px;
+    color: var(--gray);
+}
+
+/* Balance Card */
+.bank-balance-card {
+    background: linear-gradient(135deg, var(--orange) 0%, #FF8A5C 100%);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 40px rgba(255, 113, 67, 0.3);
+}
+
+.balance-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.balance-amount {
+    font-size: 56px;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.balance-amount .currency {
+    font-size: 28px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+/* Actions */
+.bank-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.bank-action-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bank-action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.bank-action-card.transfer-card {
+    grid-column: 1 / -1;
+}
+
+.action-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 8px;
+}
+
+.action-desc {
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 20px;
+}
+
+.action-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.action-input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 15px;
+    color: var(--dark);
+    background: var(--light-bg);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.action-input:focus {
+    outline: none;
+    border-color: var(--orange);
+    background: white;
+}
+
+.action-input::placeholder {
+    color: var(--gray);
+}
+
+.action-btn {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.deposit-btn,
+.transfer-btn {
+    background-color: var(--green);
+    color: white;
+}
+
+.deposit-btn:hover,
+.transfer-btn:hover {
+    background-color: #0D9668;
+    transform: scale(1.02);
+}
+
+.withdraw-btn {
+    background-color: var(--red);
+    color: white;
+}
+
+.withdraw-btn:hover {
+    background-color: #DC2626;
+    transform: scale(1.02);
+}
+
+/* History */
+.bank-history {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--border-color);
+}
+
+.history-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 20px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.history-empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--gray);
+    font-family: 'Jost', sans-serif;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: var(--light-bg);
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.history-item:hover {
+    background: #F1F5F9;
+}
+
+.history-icon {
+    font-size: 24px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 10px;
+}
+
+.history-info {
+    flex: 1;
+}
+
+.history-type {
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 4px;
+}
+
+.history-date {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    color: var(--gray);
+}
+
+.history-target {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    color: var(--orange);
+    margin-top: 2px;
+}
+
+.history-amount {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.history-amount.positive {
+    color: var(--green);
+}
+
+.history-amount.negative {
+    color: var(--red);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .bank-title {
+        font-size: 32px;
+    }
+
+    .balance-amount {
+        font-size: 42px;
+    }
+
+    .bank-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .bank-action-card.transfer-card {
+        grid-column: 1;
+    }
+}
